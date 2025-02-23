@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using UnityEngine;
 
 namespace CheesyUtils {
@@ -50,7 +51,12 @@ namespace CheesyUtils {
         /// <param name="color">The color to convert.</param>
         /// <returns>A hexadecimal string representation of the color.</returns>
         public static string ToHex(this Color color)
-            => $"#{ColorUtility.ToHtmlStringRGBA(color)}";
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("#");
+            sb.Append(ColorUtility.ToHtmlStringRGBA(color));
+            return sb.ToString();
+        }
 
         /// <summary>
         /// Converts a hexadecimal string to a Color.

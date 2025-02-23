@@ -25,7 +25,6 @@ namespace CheesyUtils.AttributeFields
             if (EditorGUI.EndChangeCheck()) {
                 property.serializedObject.ApplyModifiedProperties();
                 EditorUtility.SetDirty(property.serializedObject.targetObject);
-                
                 // Force a repaint of the hierarchy
                 EditorApplication.RepaintHierarchyWindow();
             }
