@@ -11,7 +11,7 @@ namespace CheesyUtils.EditorTools
         private TMP_FontAsset _oldFont;
         private TMP_FontAsset _newFont;
 
-        [MenuItem("Window/Custom Tools/Font Replacer")]
+        [MenuItem("Tools/Fonts/Font Replacer")]
         public static void ShowWindow()
         {
             GetWindow<FontReplacerTool>("Font Replacer");
