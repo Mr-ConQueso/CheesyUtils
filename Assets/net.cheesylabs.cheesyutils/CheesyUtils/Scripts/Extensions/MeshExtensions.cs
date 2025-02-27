@@ -8,12 +8,12 @@ namespace CheesyUtils
         private static readonly int DetailAlbedoMap = Shader.PropertyToID("_DetailAlbedoMap");
         private static readonly int DetailAlbedoMapScale = Shader.PropertyToID("_DetailAlbedoMapScale");
         
-        public static void SetMaterial(this MeshRenderer renderer, int index, Material material)
+        public static void SetMaterialAtIndex(this MeshRenderer renderer, int index, Material material)
         {
             List<Material> materials = new List<Material>();
             renderer.GetSharedMaterials(materials);
             materials[index] = material;
-            renderer.sharedMaterials = materials.ToArray();
+            renderer.SetSharedMaterials(materials);
         }
         
         public static void SetAllMaterials(this MeshRenderer renderer, Material material)
@@ -24,7 +24,7 @@ namespace CheesyUtils
             {
                 materials[i] = material;
             }
-            renderer.sharedMaterials = materials.ToArray();
+            renderer.SetSharedMaterials(materials);
         }
         
         public static void SetDetailTexture(this MeshRenderer renderer, Texture detailTexture, float scale)
@@ -37,7 +37,7 @@ namespace CheesyUtils
                 material.SetTexture(DetailAlbedoMap, detailTexture);
                 material.SetFloat(DetailAlbedoMapScale, scale);
             }
-            renderer.sharedMaterials = materials.ToArray();
+            renderer.SetSharedMaterials(materials);
         }
     }
 }
