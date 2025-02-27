@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Text;
 
 namespace CheesyUtils {
     public static class StringExtensions {
@@ -83,16 +85,70 @@ namespace CheesyUtils {
         }
         
         // Rich text formatting, for Unity UI elements that support rich text.
-        public static string RichColor(this string text, string color) => $"<color={color}>{text}</color>";
-        public static string RichSize(this string text, int size) => $"<size={size}>{text}</size>";
-        public static string RichBold(this string text) => $"<b>{text}</b>";
-        public static string RichItalic(this string text) => $"<i>{text}</i>";
-        public static string RichUnderline(this string text) => $"<u>{text}</u>";
-        public static string RichStrikethrough(this string text) => $"<s>{text}</s>";
-        public static string RichFont(this string text, string font) => $"<font={font}>{text}</font>";
-        public static string RichAlign(this string text, string align) => $"<align={align}>{text}</align>";
-        public static string RichGradient(this string text, string color1, string color2) => $"<gradient={color1},{color2}>{text}</gradient>";
-        public static string RichRotation(this string text, float angle) => $"<rotate={angle}>{text}</rotate>";
-        public static string RichSpace(this string text, float space) => $"<space={space}>{text}</space>";
+        public static string RichColor(this string text, string color)
+        {
+            return CreateRichText(text, "color", color);
+        }
+        public static string RichSize(this string text, int size)
+        {
+            return CreateRichText(text, "size", size.ToString());
+        }
+
+        public static string RichBold(this string text)
+        {
+            return CreateRichText(text, "b");
+        }
+
+        public static string RichItalic(this string text)
+        {
+            return CreateRichText(text, "i");
+        }
+
+        public static string RichUnderline(this string text)
+        {
+            return CreateRichText(text, "u");
+        }
+
+        public static string RichStrikethrough(this string text)
+        {
+            return CreateRichText(text, "s");
+        }
+
+        public static string RichFont(this string text, string font)
+        {
+            return CreateRichText(text, "font", font);
+        }
+
+        public static string RichAlign(this string text, string align)
+        {
+            return CreateRichText(text, "align", align);
+        }
+
+        public static string RichGradient(this string text, string color1, string color2)
+        {
+            return CreateRichText(text, "gradient", color1, color2);
+        }
+
+        public static string RichRotation(this string text, float angle)
+        {
+            return CreateRichText(text, "rotate", angle.ToString(CultureInfo.CurrentCulture));
+        }
+
+        public static string RichSpace(this string text, float space)
+        {
+            return CreateRichText(text, "space", space.ToString(CultureInfo.CurrentCulture));
+        }
+
+        private static string CreateRichText(string text, string tag, params string[] attributes) {
+            StringBuilder sb = new StringBuilder();
+            sb.Append('<').Append(tag);
+    
+            foreach (string attribute in attributes) {
+                sb.Append(' ').Append(attribute);
+            }
+    
+            sb.Append('>').Append(text).Append("</").Append(tag).Append('>');
+            return sb.ToString();
+        }
     }
 }

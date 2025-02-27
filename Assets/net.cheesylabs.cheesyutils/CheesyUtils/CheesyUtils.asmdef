@@ -12,6 +12,9 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [],
+    "excludeReferences": [
+        "System.Linq"
+    ],
     "versionDefines": [
         {
             "name": "com.unity.mathematics",

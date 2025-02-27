@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace CheesyUtils {
     public static class RendererExtensions {
@@ -8,7 +9,9 @@ namespace CheesyUtils {
         /// for instance, ensuring correct layering of transparent objects.
         /// </summary>    
         public static void EnableZWrite(this Renderer renderer) {
-            foreach (Material material in renderer.materials) {
+            List<Material> materials = new List<Material>();
+            renderer.GetMaterials(materials);
+            foreach (Material material in materials) {
                 if (material.HasProperty("_Color")) {
                     material.SetInt("_ZWrite", 1);
                     material.renderQueue = (int) UnityEngine.Rendering.RenderQueue.Transparent;
@@ -22,7 +25,9 @@ namespace CheesyUtils {
         /// rendering from being occluded, like in rendering of semi-transparent or layered objects.
         /// </summary>
         public static void DisableZWrite(this Renderer renderer) {
-            foreach (Material material in renderer.materials) {
+            List<Material> materials = new List<Material>();
+            renderer.GetMaterials(materials);
+            foreach (Material material in materials) {
                 if (material.HasProperty("_Color")) {
                     material.SetInt("_ZWrite", 0);
                     material.renderQueue = (int) UnityEngine.Rendering.RenderQueue.Transparent + 100;

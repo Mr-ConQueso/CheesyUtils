@@ -167,7 +167,7 @@ namespace CheesyUtils.Inputs
                     m_CurrentDevice = Pointer.current;
                 else
                     throw new ArgumentException(
-                        $"Expected device type that implements .current, but got '{device.name}' (deviceId: {device.deviceId}) instead ");
+                        $"Expected device type that implements .current, but got '{device.name.ToString()}' (deviceId: {device.deviceId.ToString()}) instead ");
             }
         }
 
