@@ -1,0 +1,19 @@
+{
+    "name": "CheesyUtils.Inputs",
+    "rootNamespace": "CheesyUtils.Inputs",
+    "references": [
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:5e8d6491142689257bf44b1f5f15a656",
+        "GUID:8a9425172b05846beb4bcce754e53b3d",
+        "GUID:383ac0b02d7602a54bc7d30493a8163c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

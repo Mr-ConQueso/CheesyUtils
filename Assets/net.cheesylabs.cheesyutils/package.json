@@ -10,7 +10,11 @@
     "editor"
   ],
   "category": "editor extensions",
-  "dependencies": {},
+  "dependencies": {
+    "com.unity.inputsystem": "1.11.2",
+    "com.unity.textmeshpro": "3.0.6",
+    "com.unity.mathematics": "1.3.2"
+  },
   "author": {
     "name": "Mr.ConQueso",
     "url": "https://github.com/Mr-ConQueso"
