@@ -1,4 +1,3 @@
-using System;
 using System.Globalization;
 using CheesyUtils.Inputs;
 using TMPro;
@@ -6,7 +5,7 @@ using UnityEngine;
 
 namespace DefaultNamespace
 {
-    public class VibrationTest : MonoBehaviour
+    public class IOSHapticsTest : MonoBehaviour
     {
         [SerializeField] private TMP_Text _playPauseText;
         [SerializeField] private TMP_InputField _durationInputField;
@@ -17,12 +16,10 @@ namespace DefaultNamespace
         private bool _isPaused = false;
         private float _duration = 0.5f;
         private Vector2 _strength = new Vector2(0.5f, 0.5f);
-        private HapticStrength _strengthType = HapticStrength.Medium;
 
         private void Start()
         {
             _durationInputField.text = _duration.ToString(CultureInfo.InvariantCulture);
-            _strengthTypeDropdown.value = (int)_strengthType;
         }
 
         public void OnClick_VibrateUnity()
@@ -41,12 +38,12 @@ namespace DefaultNamespace
         
         public void OnClick_VibrateDuration()
         {
-            _controllerVibration.VibrateWithDuration(_duration,_strengthType);
+            _controllerVibration.VibrateWithDuration(_duration);
         }
 
         public void OnClick_VibrateOneShot()
         {
-            _controllerVibration.VibrateOneShot(_strengthType);
+            _controllerVibration.VibrateOneShot();
         }
         
         public void OnClick_PlayPauseVibration()
@@ -74,25 +71,6 @@ namespace DefaultNamespace
         {
             float duration = float.Parse(text);
             _duration = duration;
-        }
-        
-        public void OnClick_SetStrengthType(Int32 value)
-        {
-            _strengthType = value switch
-            {
-                0 => HapticStrength.Light,
-                1 => HapticStrength.Medium,
-                2 => HapticStrength.Heavy,
-                _ => _strengthType
-            };
-
-            _strength = _strengthType switch
-            {
-                HapticStrength.Light => new Vector2(0.1f, 0.1f),
-                HapticStrength.Medium => new Vector2(0.5f, 0.5f),
-                HapticStrength.Heavy => new Vector2(1f, 1f),
-                _ => new Vector2(0.5f, 0.5f)
-            };
         }
     }
 }

@@ -1,21 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-#if UNITY_ANDROID
-using CheesyUtils.Platforms.Android;
-#elif UNITY_WEBGL
-using CheesyUtils.Platforms.Web;
-#elif UNITY_IOS
-using CheesyUtils.Platforms.IOS;
-#endif
 
 namespace CheesyUtils.Inputs
 {
     public class ControllerVibration : MonoBehaviour
     {
         private List<IVibrationPart> _currentVibrateList = new List<IVibrationPart>();
-        
+
+        private void Awake()
+        {
+            DeviceHaptics.Init();
+        }
+
         /// <summary>
         /// Pauses all active haptic feedback on supported input devices.
         /// </summary>
@@ -38,14 +37,7 @@ namespace CheesyUtils.Inputs
         public static void ResetVibration()
         {
             InputSystem.ResetHaptics();
-
-#if UNITY_ANDROID
-            AndroidHaptics.StopVibration();
-#elif UNITY_WEBGL
-            WebGLVibrate.Stop();
-#elif UNITY_IOS
-            IOSVibrate.Stop();
-#endif
+            DeviceHaptics.StopHaptics();
         }
         
         /// <summary>
@@ -66,72 +58,33 @@ namespace CheesyUtils.Inputs
         /// </summary>
         /// <param name="duration">The duration of the vibration in seconds.</param>
         /// <param name="strength">The intensity of the vibration, defaulting to medium.</param>
-        public void VibrateWithDuration(float duration, HapticStrength strength = HapticStrength.Medium)
+        public void VibrateWithDuration(float duration)
         {
             if (CheckIfCanVibrate() == false) return;
 
-            StartCoroutine(Vibrate(duration, strength));
-            VibrateHandHeld(duration, strength);
+            StartCoroutine(Vibrate(duration));
+            DeviceHaptics.VibratePop();
         }
         
         /// <summary>
         /// Triggers a short vibration with a specified intensity.
         /// </summary>
         /// <param name="strength">The intensity of the vibration, defaulting to medium.</param>
-        public void VibrateOneShot(HapticStrength strength = HapticStrength.Medium)
+        public void VibrateOneShot()
         {
             if (CheckIfCanVibrate() == false) return;
 
-            StartCoroutine(Vibrate(0f, strength));
-            VibrateHandHeld(0f, strength);
+            StartCoroutine(Vibrate(0f));
+            DeviceHaptics.VibratePop();
         }
-
+        
         private static bool CheckIfCanVibrate()
         {
-#if UNITY_ANDROID
-            return AndroidHaptics.IsVibratorSupported();
-#elif UNITY_IOS
-            return IOSVibrate.IsVibratorSupported();
-#elif UNITY_WEBGL
-            return WebGLVibrate.AreHapticsSupported();
-#elif UNITY_STANDALONE
+            if (Application.isMobilePlatform)
+            {
+                return DeviceHaptics.HasVibrator();
+            }
             return Gamepad.all.Count > 0;
-#else
-            return false;
-#endif
-        }
-        
-        private static Vector2 GetMotorStrength(HapticStrength strength)
-        {
-            return strength switch
-            {
-                HapticStrength.Light => new Vector2(0.1f, 0.1f),
-                HapticStrength.Medium => new Vector2(0.5f, 0.5f),
-                HapticStrength.Heavy => new Vector2(1f, 1f),
-                _ => new Vector2(0.5f, 0.5f)
-            };
-        }
-
-        private static int GetHapticStrength(HapticStrength strength)
-        {
-            return strength switch
-            {
-                HapticStrength.Light => 50,
-                HapticStrength.Medium => 100,
-                HapticStrength.Heavy => 250,
-                _ => 100
-            };
-        }
-        
-        private static void VibrateHandHeld(float duration, HapticStrength strength)
-        {
-#if UNITY_ANDROID
-            AndroidHaptics.Vibrate(duration, GetHapticStrength(strength));
-#elif UNITY_IOS
-            IOSVibrate.Vibrate(duration, strength);
-#elif UNITY_WEBGL
-            WebGLVibrate.Vibrate(duration, strength);
-#endif
         }
 
         private IEnumerator VibrateSequenceManager()
@@ -143,9 +96,9 @@ namespace CheesyUtils.Inputs
             _currentVibrateList.Clear();
         }
         
-        private static IEnumerator Vibrate(float duration, HapticStrength strength)
+        private static IEnumerator Vibrate(float duration)
         {
-            Vector2 motorStrength = GetMotorStrength(strength);
+            Vector2 motorStrength = new Vector2(0.5f, 0.5f);
             Gamepad.current.SetMotorSpeeds(motorStrength.x, motorStrength.y);
             yield return new WaitForSeconds(duration);
             Gamepad.current.SetMotorSpeeds(0, 0);
@@ -183,7 +136,7 @@ namespace CheesyUtils.Inputs
                 Vector2 strength = data.GetPartDataStrength();
                 Gamepad.current.SetMotorSpeeds(strength.x, strength.y);
                 //completes the vibration duration
-                VibrateHandHeld(duration, HapticStrength.Medium);
+                DeviceHaptics.VibratePop();
                 
                 yield return new WaitForSeconds(duration);
             }

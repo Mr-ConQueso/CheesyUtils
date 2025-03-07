@@ -1,4 +1,4 @@
-var WebGLVibrate = {
+var WebGLHaptics = {
     vibrateInterval: null, // Store interval ID for persistent vibration
 
     Vibrate: function(duration) {
@@ -9,9 +9,9 @@ var WebGLVibrate = {
 
     StopVibrate: function() {
         if ("vibrate" in navigator) {
-            if (WebGLVibrate.vibrateInterval) {
-                clearInterval(WebGLVibrate.vibrateInterval);
-                WebGLVibrate.vibrateInterval = null;
+            if (WebGLHaptics.vibrateInterval) {
+                clearInterval(WebGLHaptics.vibrateInterval);
+                WebGLHaptics.vibrateInterval = null;
             }
             navigator.vibrate(0); // Stop all ongoing vibrations
         }
@@ -22,4 +22,4 @@ var WebGLVibrate = {
     }
 };
 
-mergeInto(LibraryManager.library, WebGLVibrate);
+mergeInto(LibraryManager.library, WebGLHaptics);

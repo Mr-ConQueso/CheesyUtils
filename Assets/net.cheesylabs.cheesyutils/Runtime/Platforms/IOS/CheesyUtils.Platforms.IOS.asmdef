@@ -1,6 +1,6 @@
 {
     "name": "CheesyUtils.Platforms.IOS",
-    "rootNamespace": "",
+    "rootNamespace": "CheesyUtils.Platforms.IOS",
     "references": [],
     "includePlatforms": [
         "Editor",

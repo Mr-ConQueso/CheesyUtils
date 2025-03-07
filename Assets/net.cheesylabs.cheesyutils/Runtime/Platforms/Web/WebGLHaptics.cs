@@ -4,7 +4,7 @@ using UnityEngine;
 namespace CheesyUtils.Platforms.Web
 {
 #if UNITY_WEBGL
-    public class WebGLVibrate
+    public class WebGLHaptics
     {
         [DllImport("__Internal")]
         private static extern void Vibrate(float duration);

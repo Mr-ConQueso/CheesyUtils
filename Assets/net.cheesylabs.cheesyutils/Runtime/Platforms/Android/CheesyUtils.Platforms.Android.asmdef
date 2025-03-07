@@ -1,6 +1,6 @@
 {
     "name": "CheesyUtils.Platforms.Android",
-    "rootNamespace": "",
+    "rootNamespace": "CheesyUtils.Platforms.Android",
     "references": [],
     "includePlatforms": [
         "Android",
