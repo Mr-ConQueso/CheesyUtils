@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace CheesyUtils {
     public static class StringExtensions {
@@ -137,6 +138,26 @@ namespace CheesyUtils {
         public static string RichSpace(this string text, float space)
         {
             return CreateRichText(text, "space", space.ToString(CultureInfo.CurrentCulture));
+        }
+        
+        /// <summary>
+        /// Converts a hex string to a Color.
+        /// </summary>
+        /// <param name="hex">The hex string to convert.</param>
+        /// <returns></returns>
+        public static Color ToColor(this string hex) {
+            hex = hex.Replace("0x", "");
+            hex = hex.Replace("#", "");
+
+            byte a = 255;
+            byte r = byte.Parse(hex.Substring(0,2), NumberStyles.HexNumber);
+            byte g = byte.Parse(hex.Substring(2,2), NumberStyles.HexNumber);
+            byte b = byte.Parse(hex.Substring(4,2), NumberStyles.HexNumber);
+
+            if (hex.Length == 8)
+                a = byte.Parse(hex.Substring(6,2), NumberStyles.HexNumber);
+
+            return new Color32(r,g,b,a);
         }
 
         private static string CreateRichText(string text, string tag, params string[] attributes) {

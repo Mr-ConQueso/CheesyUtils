@@ -15,6 +15,27 @@ namespace CheesyUtils {
         public static Vector2 With(this Vector2 vector2, float? x = null, float? y = null) {
             return new Vector2(x ?? vector2.x, y ?? vector2.y);
         }
+        
+        /// <summary>
+        /// Rounds the x and y values of a Vector2 to the specified number of decimal places.
+        /// </summary>
+        /// <param name="vector">The Vector2 to round.</param>
+        /// <param name="to">The number of decimal places to round to.</param>
+        /// <returns></returns>
+        public static Vector2 Round(this Vector2 vector, int to = 0) => new Vector2(vector.x.Round(to), vector.y.Round(to)); 
+
+        /// <summary>
+        /// Rotates a Vector2 by a specified angle around a pivot point.
+        /// </summary>
+        /// <param name="vector">The Vector2 to rotate.</param>
+        /// <param name="angle">The angle to rotate by.</param>
+        /// <param name="pivot">The pivot point to rotate around.</param>
+        /// <returns></returns>
+        public static Vector2 Rotate(this Vector2 vector, float angle, Vector2 pivot = default(Vector2)) 
+        {
+            Vector2 rotated = Quaternion.Euler(new Vector3(0f, 0f, angle)) * (vector - pivot);
+            return rotated + pivot;
+        }
 
         /// <summary>
         /// Returns a Boolean indicating whether the current Vector2 is in a given range from another Vector2
