@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +5,7 @@ using UnityEngine.InputSystem;
 
 namespace CheesyUtils.Inputs
 {
-    public class ControllerVibration : MonoBehaviour
+    public class ControllerVibration : MonoBehaviour //TODO: Remove MonoBehaviour & make it a static class
     {
         private List<IVibrationPart> _currentVibrateList = new List<IVibrationPart>();
 
