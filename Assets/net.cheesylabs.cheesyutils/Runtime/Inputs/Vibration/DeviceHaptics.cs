@@ -18,7 +18,7 @@ namespace CheesyUtils.Inputs
         {
             if (_initialized) return;
             
-            AndroidHaptics.Init();
+            // AndroidHaptics.Init();
             
             _initialized = true;
         }

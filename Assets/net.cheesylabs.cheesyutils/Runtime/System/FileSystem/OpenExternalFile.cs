@@ -1,12 +1,11 @@
 // opens external file in default viewer for that filetype
 // for example: powerpoint file would open in powerpoint
 
-using UnityEngine;
-using System.Collections;
-using System.IO;
-using System.Diagnostics;
 using System;
-using Debug = UnityEngine.Debug;
+using System.Diagnostics;
+using System.IO;
+using UnityEngine;
+
 namespace CheesyUtils
 {
     public class OpenExternalFile : MonoBehaviour
@@ -15,7 +14,7 @@ namespace CheesyUtils
         // opens external file in default viewer
         public static void OpenFile(string fullPath)
         {
-            Debug.Log("opening:" + fullPath);
+            UnityEngine.Debug.Log("opening:" + fullPath);
 
             if (File.Exists(fullPath))
             {
@@ -28,7 +27,7 @@ namespace CheesyUtils
                 }
                 catch (Exception e)
                 {
-                    Debug.Log(e);
+                    UnityEngine.Debug.Log(e);
                 }
             }
         }
