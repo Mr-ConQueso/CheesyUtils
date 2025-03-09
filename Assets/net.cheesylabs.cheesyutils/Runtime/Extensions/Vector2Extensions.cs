@@ -36,6 +36,18 @@ namespace CheesyUtils {
             Vector2 rotated = Quaternion.Euler(new Vector3(0f, 0f, angle)) * (vector - pivot);
             return rotated + pivot;
         }
+        
+        /// <summary>
+        /// Adds to any x y values of a Vector2
+        /// </summary>
+        /// <param name="v">The Vector2 to add to</param>
+        /// <param name="x">The amount to add to the x value</param>
+        /// <returns>The Vector2 with the x value modified</returns>
+        public static Vector2 AddX(this Vector2 v, float x)
+        {
+            v.x = v.x + x;
+            return v;
+        }
 
         /// <summary>
         /// Returns a Boolean indicating whether the current Vector2 is in a given range from another Vector2

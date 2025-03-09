@@ -99,7 +99,12 @@ namespace CheesyUtils.Inputs
         
         public static void Vibrate()
         {
-            Handheld.Vibrate();
+            if (Application.isMobilePlatform)
+            {
+#if UNITY_ANDROID || UNITY_IOS
+                Handheld.Vibrate();
+#endif
+            }
         }
     }
 }
