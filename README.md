@@ -31,3 +31,4 @@ This project builds upon and extends functionality from [Unity-Utils](https://gi
 https://github.com/BenoitFreslon/Vibration
 https://github.com/UnityCommunity/UnityLibrary
 https://github.com/Sacred-Seed-Studio/Unity-File-Debug/tree/master
+https://github.com/yasirkula/UnityIngameDebugConsole

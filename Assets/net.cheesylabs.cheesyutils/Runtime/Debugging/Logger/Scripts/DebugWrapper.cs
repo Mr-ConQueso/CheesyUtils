@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace CheesyUtils
 {
@@ -88,10 +90,7 @@ namespace CheesyUtils
             UnityEngine.Debug.ClearDeveloperConsole();
         }
 
-        public static bool isDebugBuild
-        {
-            get { return UnityEngine.Debug.isDebugBuild; }
-        }
+        public static bool IsDebugBuild => UnityEngine.Debug.isDebugBuild;
 
         #endregion
 
@@ -189,12 +188,12 @@ namespace CheesyUtils
 
         #region Exception
 
-        public static void LogException(System.Exception exception)
+        public static void LogException(Exception exception)
         {
             UnityEngine.Debug.LogException(exception);
         }
 
-        public static void LogException(System.Exception exception, Object context)
+        public static void LogException(Exception exception, Object context)
         {
             UnityEngine.Debug.LogException(exception, context);
         }
