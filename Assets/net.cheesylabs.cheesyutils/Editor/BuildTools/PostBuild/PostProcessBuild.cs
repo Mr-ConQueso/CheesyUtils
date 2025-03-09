@@ -4,9 +4,8 @@
 using System.Diagnostics;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
-using Debug = UnityEngine.Debug;
 
-namespace CheesyUtils.EditorTools
+namespace CheesyUtils.EditorTools.BuildTools
 {
     public class PostProcessBuild : IPostprocessBuildWithReport
     {

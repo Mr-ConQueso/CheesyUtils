@@ -5,7 +5,7 @@ using UnityEngine;
 
 // copies empty StreamingAssets/ folders into build, as they are not automatically included
 
-namespace CheesyUtils.EditorTools
+namespace CheesyUtils.EditorTools.BuildTools
 {
     public class PostBuildCopyEmptyFolders : MonoBehaviour
     {

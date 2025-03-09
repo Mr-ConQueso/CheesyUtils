@@ -17,7 +17,7 @@ namespace CheesyUtils.Editor.BuildTools
 			CompileTimeTracker.KeyframeAdded += LogCompileTimeKeyframe;
 		}
 
-		[MenuItem("Tools/Compile Time Tracker Window")]
+		[MenuItem("Tools/Build Tools/Compile Time Tracker")]
 		public static void Open()
 		{
 			GetWindow<CompileTimeTrackerWindow>(false, "Compile Timer Tracker", true);

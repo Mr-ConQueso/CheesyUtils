@@ -15,7 +15,7 @@ namespace CheesyUtils.EditorTools
         private int _inactiveSpriteRendererCount;
         private int _totalGameObjectCount;
 
-        [MenuItem("Tools/Renderer Type Counter")]
+        [MenuItem("Window/Analysis/Renderer Type Counter")]
         public static void ShowWindow()
         {
             GetWindow<RendererTypeCounter>("Renderer Type Counter");

@@ -20,7 +20,7 @@ namespace CheesyUtils.EditorTools
 
         private MeshFilter[] _meshes;
 
-        [MenuItem("Tools/UnityLibrary/GetMeshInfo")]
+        [MenuItem("Tools/Mesh Tools/Get Mesh Info")]
         public static void ShowWindow()
         {
             var window = GetWindow(typeof(GetSelectedMeshInfo));

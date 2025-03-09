@@ -11,7 +11,7 @@ namespace CheesyUtils.EditorTools
         private Dictionary<System.Type, List<Object>> _groupedObjects;
         private List<Object> _allObjects;
 
-        [MenuItem("Tools/UnityLibrary/Select Assets By Type")]
+        [MenuItem("Tools/Select Assets By Type")]
         public static void ShowWindow()
         {
             GetWindow<SelectAssetsByType>("Select Assets By Type");

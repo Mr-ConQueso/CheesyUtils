@@ -25,7 +25,7 @@ namespace CheesyUtils.EditorTools
         #endregion
 
         #region Menu items
-        [MenuItem("Tools/Automatic Version Numbering/Settings")]
+        [MenuItem("Tools/Build Tools/Automatic Version Numbering")]
         private static void ShowSettingsWindow()
         {
             var window = EditorWindow.GetWindow<VersionSettingsWindow>();

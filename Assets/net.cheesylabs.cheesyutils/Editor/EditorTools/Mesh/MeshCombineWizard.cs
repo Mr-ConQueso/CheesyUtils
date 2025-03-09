@@ -11,7 +11,7 @@ namespace CheesyUtils.EditorTools
   {
       public GameObject ParentOfObjectsToCombine;
 
-      [MenuItem("E.S. Tools/Mesh Combine Wizard")]
+      [MenuItem("Tools/Mesh Tools/Mesh Combine Wizard")]
       private static void CreateWizard()
       {
           ScriptableWizard.DisplayWizard<MeshCombineWizard>("Mesh Combine Wizard");
