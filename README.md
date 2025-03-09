@@ -29,3 +29,4 @@ Once installed, you can access the provided utilities across your Unity scripts 
 This project builds upon and extends functionality from [Unity-Utils](https://github.com/adammyhre/Unity-Utils). A huge thanks to the open-source community for making these tools available!
 
 https://github.com/BenoitFreslon/Vibration
+https://github.com/UnityCommunity/UnityLibrary
