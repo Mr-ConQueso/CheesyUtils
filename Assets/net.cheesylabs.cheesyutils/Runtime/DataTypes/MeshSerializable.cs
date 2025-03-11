@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using UnityEngine;
@@ -44,16 +43,16 @@ namespace CheesyUtils
         /// <param name="mesh">Mesh.</param>
         public MeshSerializable(Mesh mesh)
         {
-            this.vertices = mesh.vertices;
-            this.triangles = mesh.triangles;
-            this.normals = mesh.normals;
-            this.colors = mesh.colors;
-            this.tangents = mesh.tangents;
-            this.colors32 = mesh.colors32;
-            this.uv = mesh.uv;
-            this.uv2 = mesh.uv2;
-            this.uv3 = mesh.uv3;
-            this.uv4 = mesh.uv4;
+            this.vertices = mesh.GetVerticesToArray();
+            this.triangles = mesh.GetTrianglesToArray();
+            this.normals = mesh.GetNormalsToArray();
+            this.colors = mesh.GetColorsToArray();
+            this.tangents = mesh.GetTangentsToArray();
+            this.colors32 = mesh.GetColors32ToArray();
+            this.uv = mesh.GetUVsToArray(0);
+            this.uv2 = mesh.GetUVsToArray(1);
+            this.uv3 = mesh.GetUVsToArray(2);
+            this.uv4 = mesh.GetUVsToArray(3);
         }
 
         #endregion

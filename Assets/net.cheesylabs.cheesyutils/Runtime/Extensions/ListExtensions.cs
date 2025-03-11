@@ -9,13 +9,10 @@ namespace CheesyUtils {
         /// <summary>
         /// Determines whether a collection is null or has no elements
         /// without having to enumerate the entire collection to get a count.
-        ///
-        /// Uses LINQ's Any() method to determine if the collection is empty,
-        /// so there is some GC overhead.
         /// </summary>
         /// <param name="list">List to evaluate</param>
         public static bool IsNullOrEmpty<T>(this IList<T> list) {
-            return list == null || !list.Any();
+                return list == null || list.Count == 0;
         }
 
         /// <summary>

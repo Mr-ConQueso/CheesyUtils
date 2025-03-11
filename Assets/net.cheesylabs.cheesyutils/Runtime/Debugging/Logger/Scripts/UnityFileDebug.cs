@@ -82,7 +82,7 @@ namespace CheesyUtils
         public void UpdateFilePath()
         {
             FilePath = UseAbsolutePath ? AbsolutePath : Application.persistentDataPath;
-            FilePathFull = Path.Combine(FilePath, FileName + "." + DateTime.Now.ToString("yyyy.MM.dd.HH.mm.ss") + FileExtensionFromType(FileType));
+            FilePathFull = Path.Combine(FilePath, FileName + "." + DateTime.UtcNow.ToString("yyyy.MM.dd.HH.mm.ss") + FileExtensionFromType(FileType));
         }
 
         private void OnDisable()
@@ -134,7 +134,7 @@ namespace CheesyUtils
             }
 
             output.S = stackTrace;
-            output.TM = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            output.TM = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss");
 
             switch (FileType)
             {

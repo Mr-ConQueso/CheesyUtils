@@ -29,7 +29,7 @@ namespace CheesyUtils
             snapshotPath = Path.Combine(
                 Application.persistentDataPath,
                 SnapshotFolder,
-                DateTime.Now.ToString("ddMMyyyy_HHmmss")
+                DateTime.UtcNow.ToString("ddMMyyyy_HHmmss")
             );
             Directory.CreateDirectory(snapshotPath);
         }
@@ -38,7 +38,8 @@ namespace CheesyUtils
         {
             if (captureOnError && (type == LogType.Error || type == LogType.Exception))
             {
-                CaptureSnapshot($"error_{DateTime.Now:HHmmss}");
+                var fileName = string.Concat("error_", DateTime.UtcNow.ToString("HHmmss"));
+                CaptureSnapshot(fileName);
             }
         }
 
@@ -51,7 +52,7 @@ namespace CheesyUtils
         {
             var state = new SystemStateSnapshot
             {
-                timestamp = DateTime.Now,
+                timestamp = DateTime.UtcNow,
                 gameState = CaptureGameState(),
                 systemState = CaptureSystemState()
             };
@@ -176,7 +177,7 @@ namespace CheesyUtils
         {
             return new SystemState
             {
-                time = DateTime.Now.ToString("o"),
+                time = DateTime.UtcNow.ToString("o"),
                 frameCount = Time.frameCount,
                 systemMemory = SystemInfo.systemMemorySize,
                 graphicsMemory = SystemInfo.graphicsMemorySize,

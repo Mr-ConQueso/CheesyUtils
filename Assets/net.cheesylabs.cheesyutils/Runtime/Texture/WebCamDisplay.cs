@@ -13,7 +13,7 @@ namespace CheesyUtils
             {
                 deviceName = WebCamTexture.devices[0].name
             };
-            this.GetComponent<MeshRenderer>().material.mainTexture = webCam;
+            this.GetComponent<MeshRenderer>().sharedMaterial.mainTexture = webCam;
             webCam.Play();
         }
     }

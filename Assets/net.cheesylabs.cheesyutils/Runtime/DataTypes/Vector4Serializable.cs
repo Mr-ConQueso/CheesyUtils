@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Runtime.Serialization;
 using UnityEngine;
 
@@ -106,7 +107,10 @@ namespace CheesyUtils
             if (obj is Vector4Serializable || obj is Vector4)
             {
                 Vector4Serializable vector = (Vector4Serializable)obj;
-                return this.x == vector.x && this.y == vector.y && this.z == vector.z && this.w == vector.w;
+                return Mathf.Approximately(this.x, vector.x)
+                       && Mathf.Approximately(this.y, vector.y)
+                       && Mathf.Approximately(this.z, vector.z)
+                       && Mathf.Approximately(this.w, vector.w);
             }
             return false;
         }
@@ -118,7 +122,11 @@ namespace CheesyUtils
 
         public override string ToString()
         {
-            return string.Format("({0}, {1}, {2}, {3})", this.x, this.y, this.z, this.w);
+            return string.Format("({0}, {1}, {2}, {3})",
+                this.x.ToString(CultureInfo.CurrentCulture),
+                this.y.ToString(CultureInfo.CurrentCulture),
+                this.z.ToString(CultureInfo.CurrentCulture),
+                this.w.ToString(CultureInfo.CurrentCulture));
         }
 
         #endregion

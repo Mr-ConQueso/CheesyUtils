@@ -155,13 +155,22 @@ namespace CheesyUtils {
                 return from == to || (from != typeof(bool) && to != typeof(bool));
             }
 
-            IEnumerable<Type> lowerTypes = Enumerable.Empty<Type>();
+            IEnumerable<Type> lowerTypes = new List<Type>();
             foreach (Type[] types in PrimitiveTypeCastHierarchy) {
-                if (types.Any(t => t == to)) {
-                    return lowerTypes.Any(t => t == from);
+                foreach (Type t in types) {
+                    if (t == to) {
+                        foreach (Type lowerType in lowerTypes) {
+                            if (lowerType == from) {
+                                return true;
+                            }
+                        }
+                        return false;
+                    }
                 }
 
-                lowerTypes = lowerTypes.Concat(types);
+                foreach (Type t in types) {
+                    ((List<Type>)lowerTypes).Add(t);
+                }
             }
 
             return false; // IntPtr, UIntPtr, Enum, Boolean

@@ -39,5 +39,103 @@ namespace CheesyUtils
             }
             renderer.SetSharedMaterials(materials);
         }
+        
+        public static List<Color> GetColorsToList(this Mesh mesh)
+        {
+            List<Color> colors = new List<Color>();
+            mesh.GetColors(colors);
+            return colors;
+        }
+        
+        public static Color[] GetColorsToArray(this Mesh mesh)
+        {
+            List<Color> colors = new List<Color>();
+            mesh.GetColors(colors);
+            return colors.ToArray();
+        }
+        
+        public static Color32[] GetColors32ToArray(this Mesh mesh)
+        {
+            List<Color32> colors = new List<Color32>();
+            mesh.GetColors(colors);
+            return colors.ToArray();
+        }
+        
+        public static List<Color32> GetColors32ToList(this Mesh mesh)
+        {
+            List<Color32> colors = new List<Color32>();
+            mesh.GetColors(colors);
+            return colors;
+        }
+        
+        public static Vector3[] GetNormalsToArray(this Mesh mesh)
+        {
+            List<Vector3> normals = new List<Vector3>();
+            mesh.GetNormals(normals);
+            return normals.ToArray();
+        }
+        
+        public static List<Vector3> GetNormalsToList(this Mesh mesh)
+        {
+            List<Vector3> normals = new List<Vector3>();
+            mesh.GetNormals(normals);
+            return normals;
+        }
+        
+        public static Vector2[] GetUVsToArray(this Mesh mesh, int index)
+        {
+            List<Vector2> uvs = new List<Vector2>();
+            mesh.GetUVs(index, uvs);
+            return uvs.ToArray();
+        }
+        
+        public static List<Vector2> GetUVsToList(this Mesh mesh, int index)
+        {
+            List<Vector2> uvs = new List<Vector2>();
+            mesh.GetUVs(index, uvs);
+            return uvs;
+        }
+        
+        public static Vector3[] GetVerticesToArray(this Mesh mesh)
+        {
+            List<Vector3> vertices = new List<Vector3>();
+            mesh.GetVertices(vertices);
+            return vertices.ToArray();
+        }
+        
+        public static List<Vector3> GetVerticesToList(this Mesh mesh)
+        {
+            List<Vector3> vertices = new List<Vector3>();
+            mesh.GetVertices(vertices);
+            return vertices;
+        }
+        
+        public static int[] GetTrianglesToArray(this Mesh mesh)
+        {
+            List<int> triangles = new List<int>();
+            mesh.GetTriangles(triangles, 0);
+            return triangles.ToArray();
+        }
+        
+        public static List<int> GetTrianglesToList(this Mesh mesh)
+        {
+            List<int> triangles = new List<int>();
+            mesh.GetTriangles(triangles, 0);
+            return triangles;
+        }
+        
+        public static Vector4[] GetTangentsToArray(this Mesh mesh)
+        {
+            List<Vector4> tangents = new List<Vector4>();
+            mesh.GetTangents(tangents);
+            return tangents.ToArray();
+        }
+        
+        public static List<Vector4> GetTangentsToList(this Mesh mesh)
+        {
+            List<Vector4> tangents = new List<Vector4>();
+            mesh.GetTangents(tangents);
+            return tangents;
+        }
     }
 }

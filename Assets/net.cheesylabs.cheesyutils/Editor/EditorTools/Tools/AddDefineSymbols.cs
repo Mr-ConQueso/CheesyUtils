@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
+using UnityEditor.Build;
 
 namespace CheesyUtils.EditorTools
 {
@@ -17,8 +18,6 @@ namespace CheesyUtils.EditorTools
         /// </summary>
         public static readonly string[] Symbols = new string[]
         {
-            "MYCOMPANY",
-            "MYCOMPANY_MYPACKAGE"
         };
 
         /// <summary>
@@ -26,12 +25,12 @@ namespace CheesyUtils.EditorTools
         /// </summary>
         static AddDefineSymbols()
         {
-            string definesString =
-                PlayerSettings.GetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup);
+            string definesString = PlayerSettings.GetScriptingDefineSymbols(NamedBuildTarget.FromBuildTargetGroup(EditorUserBuildSettings.selectedBuildTargetGroup));
             List<string> allDefines = definesString.Split(';').ToList();
             allDefines.AddRange(Symbols.Except(allDefines));
-            PlayerSettings.SetScriptingDefineSymbolsForGroup(
-                EditorUserBuildSettings.selectedBuildTargetGroup,
+            PlayerSettings.SetScriptingDefineSymbols(
+                NamedBuildTarget.FromBuildTargetGroup(
+                    EditorUserBuildSettings.selectedBuildTargetGroup),
                 string.Join(";", allDefines.ToArray()));
         }
     }
