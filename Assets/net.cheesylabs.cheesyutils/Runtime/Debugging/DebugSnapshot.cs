@@ -54,7 +54,7 @@ namespace CheesyUtils
             {
                 timestamp = DateTime.UtcNow,
                 gameState = CaptureGameState(),
-                systemState = CaptureSystemState()
+                SystemSnapshotState = CaptureSystemState()
             };
 
             string json = JsonUtility.ToJson(state, true);
@@ -173,9 +173,9 @@ namespace CheesyUtils
             return value.ToString();
         }
 
-        private SystemState CaptureSystemState()
+        private SystemSnapshotState CaptureSystemState()
         {
-            return new SystemState
+            return new SystemSnapshotState
             {
                 time = DateTime.UtcNow.ToString("o"),
                 frameCount = Time.frameCount,
@@ -191,7 +191,7 @@ namespace CheesyUtils
     {
         public DateTime timestamp;
         public GameState gameState;
-        public SystemState systemState;
+        public SystemSnapshotState SystemSnapshotState;
     }
 
     [Serializable]
@@ -232,7 +232,7 @@ namespace CheesyUtils
     }
 
     [Serializable]
-    public class SystemState
+    public class SystemSnapshotState
     {
         public string time;
         public int frameCount;
