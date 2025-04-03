@@ -85,28 +85,10 @@ namespace CheesyUtils {
             return origin + position;
         }
 
-        public static float3 ClampMagnitude(this float3 vector, float min, float max)
+        public static float ClampMagnitude(this float3 vector, float max)
         {
-            float sqrMagnitude = vector.x * vector.x + vector.y * vector.y + vector.z * vector.z;
-            if (sqrMagnitude == 0f)
-            {
-                return vector; // Can't scale a zero vector
-            }
-
-            float magnitude = MathF.Sqrt(sqrMagnitude);
-    
-            if (magnitude < min)
-            {
-                float scale = min / magnitude;
-                return new float3(vector.x * scale, vector.y * scale, vector.z * scale);
-            }
-            else if (magnitude > max)
-            {
-                float scale = max / magnitude;
-                return new float3(vector.x * scale, vector.y * scale, vector.z * scale);
-            }
-    
-            return vector;
+            float magnitude = vector.Magnitude();
+            return magnitude >= max ? max : magnitude;
         }
         
         public static float3 Normalized(this float3 vector)
