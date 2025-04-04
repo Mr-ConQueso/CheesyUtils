@@ -93,6 +93,7 @@ namespace CheesyUtils {
         
         public static float3 Normalized(this float3 vector)
         {
+            if (vector.Magnitude() == 0) return vector;
             return vector / vector.Magnitude();
         }
         
