@@ -1,0 +1,18 @@
+{
+    "name": "Symbiosis.Inputs",
+    "rootNamespace": "Symbiosis.Inputs",
+    "references": [
+        "GUID:406f271bce936c0c3b84aa92e92169c6",
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:3fdfe6dde2c72ef439fd6cb6d5dca5c8"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

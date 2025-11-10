@@ -1,0 +1,41 @@
+{
+    "name": "CheesyUtils.Cloud",
+    "rootNamespace": "CheesyUtils.Cloud",
+    "references": [
+        "GUID:fe25561d224ed4743af4c60938a59d0b",
+        "GUID:be0d2672886cc45b2bcea5a5053a5347",
+        "GUID:5540e30183c82e84b954c033c388e06c",
+        "GUID:5396a5b2678914e458f35e9153212530"
+    ],
+    "includePlatforms": [
+        "Android",
+        "Editor",
+        "EmbeddedLinux",
+        "iOS",
+        "LinuxStandalone64",
+        "LinuxStandalone64Server",
+        "CloudRendering",
+        "macOSStandalone",
+        "Switch",
+        "PS4",
+        "PS5",
+        "QNX",
+        "ReservedCFE",
+        "tvOS",
+        "WSA",
+        "VisionOS",
+        "WindowsStandalone32",
+        "WindowsStandalone64",
+        "GameCoreXboxOne",
+        "XboxOne",
+        "GameCoreScarlett"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
