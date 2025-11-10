@@ -1,0 +1,17 @@
+{
+    "name": "CheesyUtils.CheesyAttributes.Test",
+    "rootNamespace": "CheesyUtils.CheesyAttributes.Test",
+    "references": [
+        "CheesyUtils.CheesyAttributes",
+        "CheesyUtils.CheesyAttributes.Editor"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
