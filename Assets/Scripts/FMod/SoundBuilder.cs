@@ -2,57 +2,49 @@ using UnityEngine;
 
 namespace CheesyUtils.FMod
 {
+    /// <summary>
+    /// Fluent builder for configuring and playing FMOD sounds.
+    /// </summary>
     public class SoundBuilder
     {
-        // ---- / Private Variables / ---- //
-        private readonly AudioManager _audioManager;
-        private SoundData _soundData;
-        private Vector3 _position = Vector3.zero;
-        private bool _randomPitch;
+        private readonly AudioManager _manager;
+        private SoundData _data;
+        private Vector3 _position;
+        private bool _useRandomPitch;
 
-        public SoundBuilder(AudioManager audioManager)
-        {
-            _audioManager = audioManager;
-        }
+        public SoundBuilder(AudioManager manager) => _manager = manager;
 
-        public SoundBuilder WithSoundData(SoundData soundData)
+        public SoundBuilder WithSoundData(SoundData data)
         {
-            _soundData = soundData;
+            _data = data;
             return this;
         }
-        
-        public SoundBuilder WithRandomPitch(bool useRandomPitch = true)
-        {
-            _randomPitch = useRandomPitch;
-            return this;
-        }
-        
+
         public SoundBuilder WithPosition(Vector3 position)
         {
             _position = position;
             return this;
         }
 
+        public SoundBuilder WithRandomPitch(bool enable = true)
+        {
+            _useRandomPitch = enable;
+            return this;
+        }
+
         public void Play()
         {
-            if (!_audioManager.CanPlaySound(_soundData)) return;
+            if (_data == null) return;
+            if (!_manager.CanPlaySound(_data)) return;
 
-            SoundEmitter soundEmitter = _audioManager.Get();
-            soundEmitter.Initialize(_soundData);
-            soundEmitter.transform.position = _position;
-            soundEmitter.transform.parent = AudioManager.Instance.transform;
+            var emitter = _manager.Get();
+            emitter.Initialize(_data);
+            emitter.transform.position = _position;
 
-            if (_randomPitch)
-            {
-                soundEmitter.WithRandomPitch();
-            }
+            if (_data.FrequentSound)
+                _manager.CreateSound().WithSoundData(_data); // track if needed
 
-            if (_soundData.FrequentSound)
-            {
-                _audioManager.FrequentSoundEmitters.Enqueue(soundEmitter);
-            }
-            
-            soundEmitter.Play();
+            emitter.Play(_position);
         }
     }
 }
