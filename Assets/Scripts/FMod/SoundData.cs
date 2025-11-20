@@ -12,4 +12,12 @@ namespace CheesyUtils.FMod
         public bool PlayOnAwake;
         public bool FrequentSound;
     }
+
+    /// <summary> Defines an FMod parameter.</summary>
+    [Serializable]
+    public struct FModParameter
+    {
+        public string Name;
+        public float Value;
+    }
 }

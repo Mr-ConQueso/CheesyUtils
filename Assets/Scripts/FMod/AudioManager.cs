@@ -39,14 +39,11 @@ namespace CheesyUtils.FMod
         private Bus _sfxBus;
 
         private readonly List<EventInstance> _eventInstances = new();
-        private readonly List<StudioEventEmitter> _eventEmitters = new();
-
-        private EventInstance _ambienceInstance;
-        private EventInstance _musicInstance;
 
         // --- Unity Lifecycle ---
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             InitializeBuses();
             InitializePool();
         }
@@ -54,13 +51,6 @@ namespace CheesyUtils.FMod
         private void OnEnable()
         {
             SceneManager.sceneLoaded += OnSceneLoaded;
-        }
-
-        private void Start()
-        {
-            // Optional: load ambience/music at startup
-            // InitializeAmbience(FMODEvents.Instance.Ambience);
-            // InitializeMusic(FMODEvents.Instance.Music);
         }
 
         private void Update()
@@ -106,43 +96,12 @@ namespace CheesyUtils.FMod
         public SoundEmitter Get() => _soundEmitterPool.Get();
         public void ReturnToPool(SoundEmitter emitter) => _soundEmitterPool.Release(emitter);
 
-        /// <summary>Creates and starts the ambience event.</summary>
-        public void InitializeAmbience(EventReference ambienceRef)
-        {
-            _ambienceInstance = CreateInstance(ambienceRef);
-            _ambienceInstance.start();
-        }
-
-        /// <summary>Creates and starts the music event.</summary>
-        public void InitializeMusic(EventReference musicRef)
-        {
-            _musicInstance = CreateInstance(musicRef);
-            _musicInstance.start();
-        }
-
-        /// <summary>Sets an ambience parameter at runtime.</summary>
-        public void SetAmbienceParameter(string name, float value) =>
-            _ambienceInstance.setParameterByName(name, value);
-
-        /// <summary>Sets a music parameter at runtime.</summary>
-        public void SetMusicParameter(string name, float value) =>
-            _musicInstance.setParameterByName(name, value);
-
         /// <summary>Creates and tracks an FMOD event instance.</summary>
         public EventInstance CreateInstance(EventReference reference)
         {
-            EventInstance instance = RuntimeManager.CreateInstance(reference);
-            _eventInstances.Add(instance);
-            return instance;
-        }
-
-        /// <summary>Initializes an FMOD StudioEventEmitter component.</summary>
-        public StudioEventEmitter InitializeEventEmitter(EventReference reference, GameObject go)
-        {
-            var emitter = go.GetComponent<StudioEventEmitter>();
-            emitter.EventReference = reference;
-            _eventEmitters.Add(emitter);
-            return emitter;
+            EventInstance eventInstance = RuntimeManager.CreateInstance(reference);
+            _eventInstances.Add(eventInstance);
+            return eventInstance;
         }
 
         // --- Private Helpers ---
@@ -188,28 +147,25 @@ namespace CheesyUtils.FMod
 
         private static void OnDestroyEmitter(SoundEmitter emitter)
         {
-            if (emitter != null)
+            if (emitter)
                 Destroy(emitter.gameObject);
         }
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            foreach (var emitter in _activeEmitters)
-                if (emitter != null) emitter.Stop();
+            foreach (SoundEmitter emitter in _activeEmitters)
+                if (emitter) emitter.Stop();
 
             _activeEmitters.Clear();
         }
 
         private void CleanUp()
         {
-            foreach (var inst in _eventInstances)
+            foreach (EventInstance inst in _eventInstances)
             {
                 inst.stop(STOP_MODE.IMMEDIATE);
                 inst.release();
             }
-
-            foreach (var emitter in _eventEmitters)
-                emitter.Stop();
         }
     }
 }

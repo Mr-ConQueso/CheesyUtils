@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using FMOD.Studio;
 using FMODUnity;
 using UnityEngine;
@@ -6,21 +7,23 @@ using UnityEngine;
 namespace CheesyUtils.FMod
 {
     /// <summary>
-    /// Wrapper around an FMOD EventInstance used by the AudioManager pool.
+    /// Wrapper around an FMOD StudioEventEmitter used by the AudioManager pool.
     /// Handles playback, positional attachment, parameter setting and release.
     /// </summary>
     [RequireComponent(typeof(Transform))]
+    [RequireComponent(typeof(StudioEventEmitter))]
     public class SoundEmitter : MonoBehaviour
     {
-        private EventInstance _instance;
         private SoundData _data;
         private Coroutine _watchCoroutine;
+        private StudioEventEmitter _emitter;
 
         /// <summary>Initializes this emitter for the given sound data.</summary>
         public void Initialize(SoundData data)
         {
             _data = data;
-            _instance = RuntimeManager.CreateInstance(data.EventRef);
+            _emitter = GetComponent<StudioEventEmitter>();
+            _emitter.EventReference = data.EventRef;
 
             // If the event is authored to loop in FMOD Studio, we simply keep the instance alive
             // until Stop() is called. For non-looping events we will wait for playback to end
@@ -34,10 +37,9 @@ namespace CheesyUtils.FMod
             if (position.HasValue)
             {
                 transform.position = position.Value;
-                RuntimeManager.AttachInstanceToGameObject(_instance, gameObject, transform);
             }
 
-            _instance.start();
+            _emitter.Play();
 
             // Stop any previous watcher
             if (_watchCoroutine != null)
@@ -57,7 +59,7 @@ namespace CheesyUtils.FMod
         public void Stop()
         {
             // Stop playback
-            _instance.stop(STOP_MODE.IMMEDIATE);
+            _emitter.Stop();
 
             // Ensure any coroutine monitoring playback is stopped
             if (_watchCoroutine != null)
@@ -67,16 +69,26 @@ namespace CheesyUtils.FMod
             }
 
             // Release the FMOD instance and return to pool
-            _instance.release();
+            _emitter.EventInstance.release();
             AudioManager.Instance.ReturnToPool(this);
         }
 
-        /// <summary>Set an FMOD parameter by name on the active instance.</summary>
-        public void WithParameter(string name, float value)
+        /// <summary>Set a FMOD parameter by name on the active instance.</summary>
+        public void WithParameter(FModParameter parameter)
         {
-            if (_instance.isValid())
+            if (!_emitter) return;
+
+            _emitter.SetParameter(parameter.Name, parameter.Value);
+        }
+
+        /// <summary>Set a list of FMOD parameters by name on the active instance.</summary>
+        public void WithParameters(List<FModParameter> parameters)
+        {
+            if (!_emitter) return;
+
+            foreach (var param in parameters)
             {
-                _instance.setParameterByName(name, value);
+                _emitter.SetParameter(param.Name, param.Value);
             }
         }
 
@@ -88,7 +100,11 @@ namespace CheesyUtils.FMod
             // Prefer using a parameter named "Pitch" if the event exposes it.
             // Fallback: set a pitch parameter if present, otherwise do nothing.
             float delta = Random.Range(min, max);
-            WithParameter("Pitch", 1f + delta);
+            WithParameter(new FModParameter
+            {
+                Name = "Pitch",
+                Value = 1.2f
+            });
         }
 
         /// <summary>Poll the instance until it stops, then release and return to pool.</summary>
@@ -98,13 +114,13 @@ namespace CheesyUtils.FMod
             while (playing)
             {
                 // Query the playback state
-                _instance.getPlaybackState(out PLAYBACK_STATE state);
-                playing = state == PLAYBACK_STATE.PLAYING || state == PLAYBACK_STATE.SUSTAINING;
+                _emitter.EventInstance.getPlaybackState(out PLAYBACK_STATE state);
+                playing = state is PLAYBACK_STATE.PLAYING or PLAYBACK_STATE.SUSTAINING;
                 yield return null;
             }
 
             // Release instance resources when finished
-            _instance.release();
+            _emitter.EventInstance.release();
             _watchCoroutine = null;
             AudioManager.Instance.ReturnToPool(this);
         }
