@@ -1,4 +1,4 @@
-﻿using CheesyUtils.CheesyAttributes;
+﻿using System;
 using UnityEngine;
 
 namespace CheesyUtils.CheesyAttributes.Test
@@ -11,7 +11,7 @@ namespace CheesyUtils.CheesyAttributes.Test
         public ResizableTextAreaNest1 nest1;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class ResizableTextAreaNest1
     {
         [ResizableTextArea]
@@ -20,7 +20,7 @@ namespace CheesyUtils.CheesyAttributes.Test
         public ResizableTextAreaNest2 nest2;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class ResizableTextAreaNest2
     {
         [ResizableTextArea]

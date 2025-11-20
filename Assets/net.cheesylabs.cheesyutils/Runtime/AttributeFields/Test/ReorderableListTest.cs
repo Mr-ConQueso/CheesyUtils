@@ -1,5 +1,5 @@
+using System;
 using System.Collections.Generic;
-using CheesyUtils.CheesyAttributes;
 using UnityEngine;
 
 namespace CheesyUtils.CheesyAttributes.Test
@@ -25,7 +25,7 @@ namespace CheesyUtils.CheesyAttributes.Test
         public List<MonoBehaviour> monoBehavioursList;
     }
 
-    [System.Serializable]
+    [Serializable]
     public struct SomeStruct
     {
         public int Int;

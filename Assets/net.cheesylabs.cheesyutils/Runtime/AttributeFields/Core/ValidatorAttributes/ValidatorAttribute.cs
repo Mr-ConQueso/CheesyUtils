@@ -2,7 +2,7 @@
 
 namespace CheesyUtils.CheesyAttributes
 {
-    public class ValidatorAttribute : Attribute, INaughtyAttribute
+    public class ValidatorAttribute : Attribute, ICheesyAttributes
     {
     }
 }

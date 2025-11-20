@@ -2,9 +2,7 @@
     "name": "CheesyUtils.CheesyAttributes",
     "rootNamespace": "CheesyUtils.CheesyAttributes",
     "references": [],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

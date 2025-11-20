@@ -1,5 +1,4 @@
 using System.Collections;
-using CheesyUtils.CheesyAttributes;
 using UnityEngine;
 
 namespace CheesyUtils.CheesyAttributes.Test

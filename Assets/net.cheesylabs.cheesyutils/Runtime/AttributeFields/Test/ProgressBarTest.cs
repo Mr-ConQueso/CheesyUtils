@@ -1,4 +1,4 @@
-using CheesyUtils.CheesyAttributes;
+using System;
 using UnityEngine;
 
 namespace CheesyUtils.CheesyAttributes.Test
@@ -18,7 +18,7 @@ namespace CheesyUtils.CheesyAttributes.Test
         public int maxElixir = 100;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class ProgressBarNest1
     {
         [ProgressBar("Mana", 100, EColor.Blue)]
@@ -27,7 +27,7 @@ namespace CheesyUtils.CheesyAttributes.Test
         public ProgressBarNest2 nest2;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class ProgressBarNest2
     {
         [ProgressBar("Stamina", 100, EColor.Green)]

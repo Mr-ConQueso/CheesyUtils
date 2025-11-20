@@ -1,4 +1,4 @@
-﻿using CheesyUtils.CheesyAttributes;
+﻿using System;
 using UnityEngine;
 
 namespace CheesyUtils.CheesyAttributes.Test
@@ -23,7 +23,7 @@ namespace CheesyUtils.CheesyAttributes.Test
         }
     }
 
-    [System.Serializable]
+    [Serializable]
     public class SortingLayerNest1
     {
         [SortingLayer]
@@ -35,7 +35,7 @@ namespace CheesyUtils.CheesyAttributes.Test
         public SortingLayerNest2 nest2;
     }
 
-    [System.Serializable]
+    [Serializable]
     public struct SortingLayerNest2
     {
         [SortingLayer]

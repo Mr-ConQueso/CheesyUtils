@@ -1,4 +1,3 @@
-using CheesyUtils.CheesyAttributes;
 using UnityEngine;
 
 namespace CheesyUtils.CheesyAttributes.Test

@@ -1,4 +1,4 @@
-using CheesyUtils.CheesyAttributes;
+using System;
 using UnityEngine;
 
 namespace CheesyUtils.CheesyAttributes.Test
@@ -11,7 +11,7 @@ namespace CheesyUtils.CheesyAttributes.Test
         public InfoBoxNest1 nest1;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class InfoBoxNest1
     {
         [InfoBox("Warning", EInfoBoxType.Warning)]
@@ -20,7 +20,7 @@ namespace CheesyUtils.CheesyAttributes.Test
         public InfoBoxNest2 nest2;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class InfoBoxNest2
     {
         [InfoBox("Error", EInfoBoxType.Error)]

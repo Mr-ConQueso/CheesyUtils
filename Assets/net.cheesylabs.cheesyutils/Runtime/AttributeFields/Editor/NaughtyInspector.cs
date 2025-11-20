@@ -38,7 +38,7 @@ namespace CheesyUtils.CheesyAttributes.Editor
         {
             GetSerializedProperties(ref _serializedProperties);
 
-            bool anyNaughtyAttribute = _serializedProperties.Any(p => PropertyUtility.GetAttribute<INaughtyAttribute>(p) != null);
+            bool anyNaughtyAttribute = _serializedProperties.Any(p => PropertyUtility.GetAttribute<ICheesyAttributes>(p) != null);
             if (!anyNaughtyAttribute)
             {
                 DrawDefaultInspector();

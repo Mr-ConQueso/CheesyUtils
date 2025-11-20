@@ -1,4 +1,4 @@
-﻿using CheesyUtils.CheesyAttributes;
+﻿using System;
 using UnityEngine;
 
 namespace CheesyUtils.CheesyAttributes.Test
@@ -34,7 +34,7 @@ namespace CheesyUtils.CheesyAttributes.Test
         public HorizontalLineNest1 nest1;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class HorizontalLineNest1
     {
         [HorizontalLine]
@@ -43,7 +43,7 @@ namespace CheesyUtils.CheesyAttributes.Test
         public HorizontalLineNest2 nest2;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class HorizontalLineNest2
     {
         [HorizontalLine]

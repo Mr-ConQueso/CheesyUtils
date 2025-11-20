@@ -1,4 +1,4 @@
-using CheesyUtils.CheesyAttributes;
+using System;
 using UnityEngine;
 
 namespace CheesyUtils.CheesyAttributes.Test
@@ -17,7 +17,7 @@ namespace CheesyUtils.CheesyAttributes.Test
         }
     }
 
-    [System.Serializable]
+    [Serializable]
     public class TagNest1
     {
         [Tag]
@@ -26,7 +26,7 @@ namespace CheesyUtils.CheesyAttributes.Test
         public TagNest2 nest2;
     }
 
-    [System.Serializable]
+    [Serializable]
     public struct TagNest2
     {
         [Tag]

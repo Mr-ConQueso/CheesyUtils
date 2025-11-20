@@ -1,6 +1,6 @@
-using UnityEngine;
+using System;
 using System.Collections.Generic;
-using CheesyUtils.CheesyAttributes;
+using UnityEngine;
 
 namespace CheesyUtils.CheesyAttributes.Test
 {
@@ -16,7 +16,7 @@ namespace CheesyUtils.CheesyAttributes.Test
         public DropdownNest1 nest1;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class DropdownNest1
     {
         [Dropdown("StringValues")]
@@ -27,7 +27,7 @@ namespace CheesyUtils.CheesyAttributes.Test
         public DropdownNest2 nest2;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class DropdownNest2
     {
         [Dropdown("GetVectorValues")]

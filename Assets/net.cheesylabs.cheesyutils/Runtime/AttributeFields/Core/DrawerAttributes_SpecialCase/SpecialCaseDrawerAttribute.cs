@@ -2,7 +2,7 @@
 
 namespace CheesyUtils.CheesyAttributes
 {
-    public class SpecialCaseDrawerAttribute : Attribute, INaughtyAttribute
+    public class SpecialCaseDrawerAttribute : Attribute, ICheesyAttributes
     {
     }
 }

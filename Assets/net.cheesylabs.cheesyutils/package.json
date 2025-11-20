@@ -2,7 +2,7 @@
   "name": "net.cheesylabs.cheesyutils",
   "displayName": "Cheesy's Utilities",
   "description": "A Unity utility package, a growing collection of handy extension methods, helpers, attributes, and other utilities designed to enhance and simplify your Unity development workflow. Whether you're a seasoned developer or just starting, this library aims to provide tools that will help streamline your coding process and add efficiency to your projects.",
-  "version": "1.8.1",
+  "version": "1.8.2",
   "keywords": [
     "extension",
     "attribute",

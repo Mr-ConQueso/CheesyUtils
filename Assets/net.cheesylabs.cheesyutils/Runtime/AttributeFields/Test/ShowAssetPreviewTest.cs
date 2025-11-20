@@ -1,4 +1,4 @@
-using CheesyUtils.CheesyAttributes;
+using System;
 using UnityEngine;
 
 namespace CheesyUtils.CheesyAttributes.Test
@@ -14,7 +14,7 @@ namespace CheesyUtils.CheesyAttributes.Test
         public ShowAssetPreviewNest1 nest1;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class ShowAssetPreviewNest1
     {
         [ShowAssetPreview]
@@ -26,7 +26,7 @@ namespace CheesyUtils.CheesyAttributes.Test
         public ShowAssetPreviewNest2 nest2;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class ShowAssetPreviewNest2
     {
         [ShowAssetPreview]

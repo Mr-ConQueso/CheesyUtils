@@ -1,5 +1,4 @@
 ﻿using System;
-using CheesyUtils.CheesyAttributes;
 using UnityEngine;
 
 namespace CheesyUtils.CheesyAttributes.Test
@@ -34,7 +33,7 @@ namespace CheesyUtils.CheesyAttributes.Test
         public DisableIfNest1 nest1;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class DisableIfNest1
     {
         public bool disable1;
@@ -69,7 +68,7 @@ namespace CheesyUtils.CheesyAttributes.Test
         public DisableIfNest2 nest2;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class DisableIfNest2
     {
         public bool disable1;
@@ -102,7 +101,7 @@ namespace CheesyUtils.CheesyAttributes.Test
         public Vector2 disableIfEnumFlagMulti;
     }
 
-    [System.Serializable]
+    [Serializable]
     public enum DisableIfEnum
     {
         Case0,

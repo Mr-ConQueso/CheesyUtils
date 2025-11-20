@@ -1,4 +1,4 @@
-﻿using CheesyUtils.CheesyAttributes;
+﻿using System;
 using UnityEngine;
 
 namespace CheesyUtils.CheesyAttributes.Test
@@ -17,7 +17,7 @@ namespace CheesyUtils.CheesyAttributes.Test
         }
     }
 
-    [System.Serializable]
+    [Serializable]
     public class InputAxisNest1
     {
         [InputAxis]
@@ -26,7 +26,7 @@ namespace CheesyUtils.CheesyAttributes.Test
         public InputAxisNest2 nest2;
     }
 
-    [System.Serializable]
+    [Serializable]
     public struct InputAxisNest2
     {
         [InputAxis]

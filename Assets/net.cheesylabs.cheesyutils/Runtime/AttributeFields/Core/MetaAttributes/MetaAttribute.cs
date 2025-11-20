@@ -2,7 +2,7 @@
 
 namespace CheesyUtils.CheesyAttributes
 {
-    public class MetaAttribute : Attribute, INaughtyAttribute
+    public class MetaAttribute : Attribute, ICheesyAttributes
     {
     }
 }

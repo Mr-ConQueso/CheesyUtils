@@ -1,4 +1,4 @@
-using CheesyUtils.CheesyAttributes;
+using System;
 using UnityEngine;
 
 namespace CheesyUtils.CheesyAttributes.Test
@@ -22,7 +22,7 @@ namespace CheesyUtils.CheesyAttributes.Test
         public OnValueChangedNest1 nest1;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class OnValueChangedNest1
     {
         [OnValueChanged("OnValueChangedMethod")]
@@ -37,7 +37,7 @@ namespace CheesyUtils.CheesyAttributes.Test
         public OnValueChangedNest2 nest2;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class OnValueChangedNest2
     {
         [OnValueChanged("OnValueChangedMethod")]

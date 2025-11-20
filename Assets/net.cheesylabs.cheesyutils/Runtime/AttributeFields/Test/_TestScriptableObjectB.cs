@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
-using CheesyUtils.CheesyAttributes;
 
 namespace CheesyUtils.CheesyAttributes.Test
 {

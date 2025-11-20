@@ -1,4 +1,4 @@
-using CheesyUtils.CheesyAttributes;
+using System;
 using UnityEngine;
 
 namespace CheesyUtils.CheesyAttributes.Test
@@ -11,7 +11,7 @@ namespace CheesyUtils.CheesyAttributes.Test
         public MinMaxSliderNest1 nest1;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class MinMaxSliderNest1
     {
         [MinMaxSlider(0.0f, 1.0f)]
@@ -20,7 +20,7 @@ namespace CheesyUtils.CheesyAttributes.Test
         public MinMaxSliderNest2 nest2;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class MinMaxSliderNest2
     {
         [MinMaxSlider(1, 11)]

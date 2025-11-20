@@ -1,5 +1,4 @@
 ﻿using System;
-using CheesyUtils.CheesyAttributes;
 using UnityEngine;
 
 namespace CheesyUtils.CheesyAttributes.Test
@@ -34,7 +33,7 @@ namespace CheesyUtils.CheesyAttributes.Test
         public HideIfNest1 nest1;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class HideIfNest1
     {
         public bool hide1;
@@ -69,7 +68,7 @@ namespace CheesyUtils.CheesyAttributes.Test
         public HideIfNest2 nest2;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class HideIfNest2
     {
         public bool hide1;

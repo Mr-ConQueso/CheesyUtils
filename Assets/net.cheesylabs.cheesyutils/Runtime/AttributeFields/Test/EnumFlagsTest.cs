@@ -1,4 +1,4 @@
-﻿using CheesyUtils.CheesyAttributes;
+﻿using System;
 using UnityEngine;
 
 namespace CheesyUtils.CheesyAttributes.Test
@@ -22,7 +22,7 @@ namespace CheesyUtils.CheesyAttributes.Test
         public EnumFlagsNest1 nest1;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class EnumFlagsNest1
     {
         [EnumFlags]
@@ -31,7 +31,7 @@ namespace CheesyUtils.CheesyAttributes.Test
         public EnumFlagsNest2 nest2;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class EnumFlagsNest2
     {
         [EnumFlags]

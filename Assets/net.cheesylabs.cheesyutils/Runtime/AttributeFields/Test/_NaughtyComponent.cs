@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 namespace CheesyUtils.CheesyAttributes.Test
@@ -7,12 +7,12 @@ namespace CheesyUtils.CheesyAttributes.Test
     {
     }
 
-    [System.Serializable]
+    [Serializable]
     public class MyClass
     {
     }
 
-    [System.Serializable]
+    [Serializable]
     public struct MyStruct
     {
     }

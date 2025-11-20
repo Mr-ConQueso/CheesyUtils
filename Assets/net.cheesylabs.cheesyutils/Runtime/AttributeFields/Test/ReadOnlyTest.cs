@@ -1,4 +1,4 @@
-using CheesyUtils.CheesyAttributes;
+using System;
 using UnityEngine;
 
 namespace CheesyUtils.CheesyAttributes.Test
@@ -11,7 +11,7 @@ namespace CheesyUtils.CheesyAttributes.Test
         public ReadOnlyNest1 nest1;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class ReadOnlyNest1
     {
         [ReadOnly]
@@ -21,7 +21,7 @@ namespace CheesyUtils.CheesyAttributes.Test
         public ReadOnlyNest2 nest2;
     }
 
-    [System.Serializable]
+    [Serializable]
     public struct ReadOnlyNest2
     {
         [ReadOnly]

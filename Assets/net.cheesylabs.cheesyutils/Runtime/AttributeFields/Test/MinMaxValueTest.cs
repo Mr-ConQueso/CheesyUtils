@@ -1,4 +1,4 @@
-﻿using CheesyUtils.CheesyAttributes;
+﻿using System;
 using UnityEngine;
 
 namespace CheesyUtils.CheesyAttributes.Test
@@ -38,7 +38,7 @@ namespace CheesyUtils.CheesyAttributes.Test
         public MinMaxValueNest1 nest1;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class MinMaxValueNest1
     {
         [MinValue(0)]
@@ -84,7 +84,7 @@ namespace CheesyUtils.CheesyAttributes.Test
         public MinMaxValueNest2 nest2;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class MinMaxValueNest2
     {
         [MinValue(0)]

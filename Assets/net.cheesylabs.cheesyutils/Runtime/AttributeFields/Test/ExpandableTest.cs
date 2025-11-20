@@ -1,4 +1,4 @@
-﻿using CheesyUtils.CheesyAttributes;
+﻿using System;
 using UnityEngine;
 
 namespace CheesyUtils.CheesyAttributes.Test
@@ -14,7 +14,7 @@ namespace CheesyUtils.CheesyAttributes.Test
         public ExpandableScriptableObjectNest1 nest1;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class ExpandableScriptableObjectNest1
     {
         [Expandable]
@@ -23,7 +23,7 @@ namespace CheesyUtils.CheesyAttributes.Test
         public ExpandableScriptableObjectNest2 nest2;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class ExpandableScriptableObjectNest2
     {
         [Expandable]
