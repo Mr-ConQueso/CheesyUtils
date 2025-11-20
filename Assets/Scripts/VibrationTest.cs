@@ -1,4 +1,5 @@
 using System.Globalization;
+using CheesyUtils.CheesyAttributes;
 using CheesyUtils.Inputs;
 using TMPro;
 using UnityEngine;
@@ -16,6 +17,12 @@ namespace DefaultNamespace
         private bool _isPaused = false;
         private float _duration = 0.5f;
         private Vector2 _strength = new Vector2(0.5f, 0.5f);
+
+        [Button]
+        private void Test()
+        {
+            Debug.Log("This is a test");
+        }
 
         private void Start()
         {

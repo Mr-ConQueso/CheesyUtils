@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 1627802642}
   - component: {fileID: 1627802641}
   - component: {fileID: 1627802643}
+  - component: {fileID: 1627802644}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -246,6 +247,23 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!114 &1627802644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1627802640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c0768b845cd4bd8b0e0cc601c55b47f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DefaultNamespace.IOSHapticsTest
+  _playPauseText: {fileID: 0}
+  _durationInputField: {fileID: 0}
+  _strengthTypeDropdown: {fileID: 0}
+  _vibrationSequence: {fileID: 0}
+  _controllerVibration: {fileID: 0}
 --- !u!1 &2000396196
 GameObject:
   m_ObjectHideFlags: 0
