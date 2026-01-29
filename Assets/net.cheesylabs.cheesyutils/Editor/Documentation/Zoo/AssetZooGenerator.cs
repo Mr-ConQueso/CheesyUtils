@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -9,108 +10,181 @@ namespace CheesyUtils.Editor.Documentation
 {
     public class AssetZooGenerator : UnityEditor.Editor
     {
-        // 1. Add menu item to the Right-Click context menu in the Project View
-        [MenuItem("Assets/Generate Asset Zoo Scene", false, 20)]
-        private static void GenerateZoo()
+        /// <summary>
+        /// Generates a "zoo" layout in the specified scene by organizing assets into a grid structure based on the provided parameters.
+        /// </summary>
+        /// <param name="targetScene">The target scene in which the "zoo" will be generated.</param>
+        /// <param name="sourceFolders">The list of asset folders to search for prefabs or models to populate the zoo.</param>
+        /// <param name="fullRegeneration">A flag indicating whether to fully regenerate the zoo by clearing existing items.</param>
+        /// <param name="spacing">The spacing between items in the zoo layout.</param>
+        /// <param name="labelOffset">The vertical offset to position labels above or below the items.</param>
+        /// <param name="itemsPerRow">The number of items to place in each row before wrapping to the next row.</param>
+        /// <param name="spawnMode">The mode for positioning items, determining whether to use the model's pivot or calculate the bottom alignment.</param>
+        public static void GenerateZoo(SceneAsset targetScene, List<DefaultAsset> sourceFolders,
+            bool fullRegeneration, float spacing, float labelOffset, int itemsPerRow,
+            AssetZooWindow.SpawnMode spawnMode)
         {
-            // Get the path of the selected folder
-            string selectedPath = AssetDatabase.GetAssetPath(Selection.activeObject);
+            string scenePath = AssetDatabase.GetAssetPath(targetScene);
+            Scene openScene = SceneManager.GetActiveScene();
 
-            // Validation: Ensure it's a folder
-            if (!Directory.Exists(selectedPath))
+            if (openScene.path != scenePath)
             {
-                Debug.LogError("Please select a folder to generate an Asset Zoo.");
-                return;
+                if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
+                openScene = EditorSceneManager.OpenScene(scenePath);
             }
 
-            CreateZooScene(selectedPath);
-        }
-
-        // Validator: Only enable the option if a folder is selected
-        [MenuItem("Assets/Generate Asset Zoo Scene", true)]
-        private static bool ValidateGenerateZoo()
-        {
-            string path = AssetDatabase.GetAssetPath(Selection.activeObject);
-            return AssetDatabase.IsValidFolder(path);
-        }
-
-        private static void CreateZooScene(string folderPath)
-        {
-            // 2. Find all Prefabs and Models in the folder
-            // We search for type:Prefab and type:Model to catch everything relevant
-            string[] guids = AssetDatabase.FindAssets("t:Prefab t:Model", new[] { folderPath });
-            
-            if (guids.Length == 0)
+            GameObject root = GameObject.Find("Zoo_Root");
+            if (!root)
             {
-                Debug.LogWarning($"No prefabs or models found in {folderPath}");
-                return;
-            }
-
-            // 3. Create a new empty scene
-            Scene newScene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
-            newScene.name = "AssetZoo_" + Path.GetFileName(folderPath);
-
-            GameObject root = new GameObject("Zoo_Root");
-            
-            // Layout settings
-            Vector3 currentPos = Vector3.zero;
-            float rowHeight = 0f;
-            float spacing = 2.0f;
-            int itemsPerRow = 10;
-            int currentColumn = 0;
-
-            List<GameObject> spawnedObjects = new List<GameObject>();
-
-            // 4. Instantiate and Place Assets
-            foreach (string guid in guids)
-            {
-                string assetPath = AssetDatabase.GUIDToAssetPath(guid);
-                GameObject asset = AssetDatabase.LoadAssetAtPath<GameObject>(assetPath);
-
-                if (asset == null) continue;
-
-                // Instantiate
-                GameObject instance = (GameObject)PrefabUtility.InstantiatePrefab(asset);
-                instance.transform.parent = root.transform;
-                instance.name = asset.name;
-
-                // Calculate Bounds to prevent overlap
-                Bounds bounds = GetBounds(instance);
-                
-                // Adjust Y position so the object sits ON the ground, not IN it
-                float yOffset = -bounds.min.y;
-                
-                // Set Position
-                instance.transform.position = currentPos + new Vector3(0, yOffset, 0);
-
-                // Create a simple text label (optional, requires TextMeshPro or standard 3D Text)
-                CreateLabel(instance, instance.name, bounds);
-
-                // Move cursor for next item
-                float width = bounds.size.x;
-                currentPos.x += width + spacing;
-
-                // Track max height for this row
-                if (bounds.size.z > rowHeight) rowHeight = bounds.size.z;
-
-                // Grid Logic: Move to next row if needed
-                currentColumn++;
-                if (currentColumn >= itemsPerRow)
+                root = new GameObject("Zoo_Root")
                 {
-                    currentColumn = 0;
-                    currentPos.x = 0;
-                    currentPos.z += rowHeight + spacing;
-                    rowHeight = 0f; // Reset row height
+                    transform =
+                    {
+                        position = Vector3.zero
+                    }
+                };
+            }
+
+            if (fullRegeneration)
+            {
+                int childCount = root.transform.childCount;
+                for (int i = childCount - 1; i >= 0; i--)
+                {
+                    DestroyImmediate(root.transform.GetChild(i).gameObject);
                 }
             }
 
-            // 5. Cleanup
-            Selection.activeGameObject = root;
-            SceneView.lastActiveSceneView.FrameSelected();
-            Debug.Log($"Generated Asset Zoo for {folderPath} with {guids.Length} assets.");
+            List<GameObject> allAssets = new List<GameObject>();
+            foreach (DefaultAsset folderAsset in sourceFolders)
+            {
+                if (!folderAsset) continue;
+                string path = AssetDatabase.GetAssetPath(folderAsset);
+
+                if (!Directory.Exists(path)) continue;
+
+                string[] guids = AssetDatabase.FindAssets("t:Prefab t:Model", new[] { path });
+                foreach (string guid in guids)
+                {
+                    string assetPath = AssetDatabase.GUIDToAssetPath(guid);
+                    GameObject go = AssetDatabase.LoadAssetAtPath<GameObject>(assetPath);
+                    if (go && !allAssets.Contains(go))
+                    {
+                        allAssets.Add(go);
+                    }
+                }
+            }
+
+            allAssets.Sort((a, b) => string.CompareOrdinal(a.name, b.name));
+
+            Vector3 currentPos = Vector3.zero;
+            float rowMaxZ = 0f;
+            int colIndex = 0;
+
+            List<Transform> existingChildren = new List<Transform>();
+            foreach(Transform t in root.transform) existingChildren.Add(t);
+
+            foreach (GameObject asset in allAssets)
+            {
+                GameObject instance = null;
+                if (!fullRegeneration)
+                {
+                    Transform existing = existingChildren.FirstOrDefault(t => t.name == asset.name);
+                    if (existing)
+                    {
+                        instance = existing.gameObject;
+                        existingChildren.Remove(existing); 
+                    }
+                }
+
+                if (!instance)
+                {
+                    instance = (GameObject)PrefabUtility.InstantiatePrefab(asset);
+                    instance.name = asset.name; // Remove "(Clone)"
+                    instance.transform.parent = root.transform;
+                    
+                    UpdateOrAddLabel(instance, asset.name);
+                }
+
+                instance.transform.rotation = Quaternion.identity; 
+                Bounds b = GetBounds(instance);
+                
+                float yPos = 0;
+                if (spawnMode == AssetZooWindow.SpawnMode.CalculateBottom)
+                {
+                    float distFromPivotToBottom = -b.min.y;
+                    yPos = -b.min.y + instance.transform.position.y;
+                }
+                else
+                {
+                    yPos = 0;
+                }
+
+                instance.transform.position = new Vector3(currentPos.x, yPos, currentPos.z);
+                
+                UpdateLabelPosition(instance, b, labelOffset);
+
+                if (ZooDebugger.ValidateZooItem(instance, out List<string> errorReport))
+                {
+                    ZooDebugger.AttachErrorVisuals(instance, errorReport);
+                    Debug.LogError($"Issues found in {instance.name}: {string.Join(", ", errorReport)}");
+                }
+                else
+                {
+                    Transform oldError = instance.transform.Find("Debug_Error_Flag");
+                    if (oldError) DestroyImmediate(oldError.gameObject);
+                }
+
+                float width = b.size.x;
+                float length = b.size.z;
+
+                if (length > rowMaxZ) rowMaxZ = length;
+
+                currentPos.x += width + spacing;
+                colIndex++;
+
+                if (colIndex >= itemsPerRow)
+                {
+                    colIndex = 0;
+                    currentPos.x = 0;
+                    currentPos.z += rowMaxZ + spacing;
+                    rowMaxZ = 0f;
+                }
+            }
+            
+            EditorSceneManager.MarkSceneDirty(openScene);
+            Debug.Log($"Zoo Updated: Processed {allAssets.Count} assets.");
+        }
+        
+        private static void UpdateOrAddLabel(GameObject target, string text)
+        {
+            Transform existingLabel = target.transform.Find("Zoo_Label");
+            if (existingLabel) return;
+
+            GameObject label = new GameObject("Zoo_Label");
+            label.transform.SetParent(target.transform);
+            
+            TextMesh tm = label.AddComponent<TextMesh>();
+            tm.text = text;
+            tm.characterSize = 0.1f;
+            tm.fontSize = 60;
+            tm.anchor = TextAnchor.UpperCenter;
+            tm.alignment = TextAlignment.Center;
+            tm.color = Color.white;
         }
 
-        // Helper: accurate bounds calculation even for complex nested objects
+        private static void UpdateLabelPosition(GameObject target, Bounds bounds, float labelOffset)
+        {
+            Transform label = target.transform.Find("Zoo_Label");
+            if (!label) return;
+            
+            label.position = new Vector3(
+                target.transform.position.x,
+                0.1f,
+                target.transform.position.z - (bounds.extents.z + 0.5f));
+            
+            label.rotation = Quaternion.Euler(90, 0, 0); 
+        }
+
         private static Bounds GetBounds(GameObject go)
         {
             Renderer[] renderers = go.GetComponentsInChildren<Renderer>();
@@ -122,24 +196,6 @@ namespace CheesyUtils.Editor.Documentation
                 b.Encapsulate(r.bounds);
             }
             return b;
-        }
-
-        // Helper: Create a simple debug label
-        private static void CreateLabel(GameObject target, string text, Bounds bounds)
-        {
-            GameObject label = new GameObject(text + "_Label");
-            label.transform.position = target.transform.position + new Vector3(0, bounds.max.y + 0.5f, 0);
-            label.transform.parent = target.transform;
-            
-            // Using TextMesh (Legacy) for zero-dependency simplicity. 
-            // In a real project, you'd likely use TMP.
-            TextMesh tm = label.AddComponent<TextMesh>();
-            tm.text = text;
-            tm.characterSize = 0.2f;
-            tm.fontSize = 50;
-            tm.anchor = TextAnchor.MiddleCenter;
-            tm.alignment = TextAlignment.Center;
-            tm.color = Color.white;
         }
     }
 }
