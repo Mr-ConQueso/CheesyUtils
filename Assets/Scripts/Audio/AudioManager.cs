@@ -59,7 +59,7 @@ namespace CheesyUtils.Audio
                     soundEmitter.Stop();
                     return true;
                 } catch {
-                    Debug.Log("SoundEmitter is already released", DLogType.Audio);
+                    Debug.Log("SoundEmitter is already released");
                 }
                 return false;
             }

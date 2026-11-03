@@ -1,10 +1,8 @@
 using System.Collections.Generic;
 using System.IO;
-using CheesyUtils;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using Debug = CheesyUtils.Debug;
 
 namespace CheesyUtils.PackagedAssets
 {
@@ -53,7 +51,7 @@ namespace CheesyUtils.PackagedAssets
 
             if (_totalAssetsToLoad == 0)
             {
-                Debug.LogWarning("No asset keys provided for loading", DLogType.Content);
+                Debug.LogWarning("No asset keys provided for loading");
                 return;
             }
 

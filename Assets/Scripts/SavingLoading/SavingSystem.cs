@@ -42,13 +42,13 @@ namespace CheesyUtils.SavingLoading
             CaptureState(state);
             SaveFile(state, GetSavePath(slot));
             SaveVariables();
-            Debug.Log("Saved at Slot: " + slot, DLogType.System);
+            Debug.Log("Saved at Slot: " + slot);
         }
 
         public void Load(int slot)
         {
             RestoreState(LoadFile(GetSavePath(slot)));
-            Debug.Log("Loaded from Slot: " + slot, DLogType.System);
+            Debug.Log("Loaded from Slot: " + slot);
         }
         
         public bool DoesSaveExist(int slot)
